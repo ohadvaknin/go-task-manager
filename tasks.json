@@ -5,25 +5,25 @@
     "command": [
       "curl",
       "-o",
-      "/tmp/winzip.dmg",
-      "http://localhost/winzipmacedition10.dmg"
+      "/tmp/largefile.zip",
+      "http://212.183.159.230/100MB.zip"
     ],
-    "cleanup": true,
-    "cleanup_path": "/tmp/example.txt",
+    "cleanup": false,
+    "cleanup_path": "",
     "depends_on": []
   },
   {
     "name": "CompressFile",
     "runner": "compress_runner",
-    "command": ["tar", "-czf", "/tmp/winzip.tar.gz", "/tmp/winzip.dmg"],
-    "cleanup": false,
-    "cleanup_path": "",
+    "command": ["tar", "-czf", "/tmp/largefile.tar.gz", "/tmp/largefile.zip"],
+    "cleanup": true,
+    "cleanup_path": "/tmp/largefile.zip",
     "depends_on": ["DownloadFile"]
   },
   {
     "name": "Calculate",
     "runner": "calculate_runner",
-    "command": ["python3", "-c", "print(sum(range(10000000000)))"],
+    "command": ["python3", "-c", "print(sum(range(1000000000)))"],
     "cleanup": false,
     "cleanup_path": "",
     "depends_on": []
