@@ -5,12 +5,11 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"sync"
 )
 
 func TaskRunner(tasks []Task) {
 	taskDone := make(map[string]chan struct{})
-	var wg sync.WaitGroup
+	done := make(chan struct{})
 
 	// Initialize channels
 	for _, task := range tasks {
@@ -19,17 +18,22 @@ func TaskRunner(tasks []Task) {
 
 	// Execute tasks
 	for _, task := range tasks {
-		wg.Add(1)
-		go executeTask(task, taskDone, &wg)
+		go executeTask(task, taskDone)
 	}
 
 	// Wait for all tasks to complete
-	wg.Wait()
+	go func() {
+		for _, task := range tasks {
+			<-taskDone[task.Name]
+		}
+		close(done)
+	}()
+
+	// Wait for all tasks to complete
+	<-done
 }
 
-func executeTask(task Task, taskDone map[string]chan struct{}, wg *sync.WaitGroup) {
-	defer wg.Done()
-
+func executeTask(task Task, taskDone map[string]chan struct{}) {
 	// Wait for dependencies to complete
 	for _, dependency := range task.DependsOn {
 		<-taskDone[dependency]
