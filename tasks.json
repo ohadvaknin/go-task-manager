@@ -1,0 +1,16 @@
+[
+  {
+      "name": "Task1",
+      "runner": "runner1",
+      "command": ["echo", "Task 1"],
+      "cleanup": true,
+      "cleanup_path": "/tmp/task1_temp_file"
+  },
+  {
+      "name": "Task2",
+      "runner": "runner2",
+      "command": ["echo", "Task 2"],
+      "cleanup": false,
+      "cleanup_path": ""
+  }
+]
