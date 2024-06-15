@@ -1,16 +1,31 @@
 [
   {
-      "name": "Task1",
-      "runner": "runner1",
-      "command": ["echo", "Task 1"],
-      "cleanup": true,
-      "cleanup_path": "/tmp/task1_temp_file"
+    "name": "DownloadFile",
+    "runner": "download_runner",
+    "command": [
+      "curl",
+      "-o",
+      "/tmp/winzip.dmg",
+      "http://localhost/winzipmacedition10.dmg"
+    ],
+    "cleanup": true,
+    "cleanup_path": "/tmp/example.txt",
+    "depends_on": []
   },
   {
-      "name": "Task2",
-      "runner": "runner2",
-      "command": ["echo", "Task 2"],
-      "cleanup": false,
-      "cleanup_path": ""
+    "name": "CompressFile",
+    "runner": "compress_runner",
+    "command": ["tar", "-czf", "/tmp/winzip.tar.gz", "/tmp/winzip.dmg"],
+    "cleanup": false,
+    "cleanup_path": "",
+    "depends_on": ["DownloadFile"]
+  },
+  {
+    "name": "Calculate",
+    "runner": "calculate_runner",
+    "command": ["python3", "-c", "print(sum(range(10000000000)))"],
+    "cleanup": false,
+    "cleanup_path": "",
+    "depends_on": []
   }
 ]

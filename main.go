@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"github.com/ohadvaknin/task/internal/task"
+
+	"github.com/ohadvaknin/go-task-manager/internal/task"
 )
 
 func main() {
@@ -20,6 +21,9 @@ func main() {
 	if err != nil {
 		log.Printf("could not decode file: %v\n", err)
 		return
+	}
+	for _, v := range tasks {
+		fmt.Printf("task:%v", v)
 	}
 	task.TaskRunner(tasks)
 }

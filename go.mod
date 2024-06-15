@@ -1,3 +1,3 @@
-module github.com/ohadvaknin/task-manager
+module github.com/ohadvaknin/go-task-manager
 
 go 1.22.3
