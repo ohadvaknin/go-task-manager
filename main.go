@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 
@@ -21,9 +20,6 @@ func main() {
 	if err != nil {
 		log.Printf("could not decode file: %v\n", err)
 		return
-	}
-	for _, v := range tasks {
-		fmt.Printf("task:%v", v)
 	}
 	task.TaskRunner(tasks)
 }
